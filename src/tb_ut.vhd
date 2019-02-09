@@ -19,6 +19,7 @@ ARCHITECTURE rtl OF tb_ut IS
   signal s_ld_carry : std_logic := '0';
   signal s_init_carry : std_logic := '0';
   signal s_o_mem_data : std_logic_vector(N-1 downto 0) := (others => '0');
+  signal s_o_mem_data_old : std_logic_vector(N-1 downto 0) := (others => '0');
   signal s_carry : std_logic := '0';
 
   component ut is
@@ -67,12 +68,15 @@ BEGIN  -- ARCHITECTURE rtl
     VARIABLE var_o_mem_data_old : integer := 0;
   BEGIN  -- PROCESS
     wait for 10 ns;
+
+    -- TESTING ADDER
     wait until rising_edge(clk);
 
     -- Fetch operands
     s_i_mem_data <= std_logic_vector(to_unsigned(var_i_mem_data, N));
     s_ld_mem_data <= '1';
-    var_o_mem_data_old := to_integer(unsigned(s_o_mem_data)); -- Save current value of ACC
+    s_o_mem_data_old <= s_o_mem_data;  -- Save current value of ACC
+    var_o_mem_data_old := to_integer(unsigned(s_o_mem_data));
 
     wait until rising_edge(clk);
 
@@ -95,6 +99,34 @@ BEGIN  -- ARCHITECTURE rtl
     ASSERT ((var_o_mem_data = (var_o_mem_data_old + var_i_mem_data)) and s_carry = '0') 
         or ((var_o_mem_data = (var_o_mem_data_old + var_i_mem_data - 256)) and s_carry = '1')
       REPORT "ERROR: "& integer'image(var_o_mem_data_old) &" + "& integer'image(var_i_mem_data) &" != "& integer'image(var_o_mem_data) 
+      SEVERITY error;
+
+    -- TESTING NOR
+    wait until rising_edge(clk);
+
+    -- Fetch operands
+    s_i_mem_data <= std_logic_vector(to_unsigned(var_i_mem_data, N));
+    s_ld_mem_data <= '1';
+    var_o_mem_data_old := to_integer(unsigned(s_o_mem_data)); -- Save current value of ACC
+
+    wait until rising_edge(clk);
+
+    -- Exec UAL 
+    s_ld_mem_data <= '0';
+    s_selec_op <= '0'; -- NOR Operation
+    s_ld_accu <= '1'; -- Save result
+
+    wait until rising_edge(clk);
+
+    s_ld_accu <= '0';
+
+    -- Read value on falling edge
+    wait until falling_edge(clk);
+    var_o_mem_data := to_integer(unsigned(s_o_mem_data));
+
+    -- Error message
+    ASSERT (s_o_mem_data = (s_o_mem_data_old nor s_i_mem_data)) 
+      REPORT "ERROR: "& integer'image(var_o_mem_data_old) &" nor "& integer'image(var_i_mem_data) &" != "& integer'image(var_o_mem_data) 
       SEVERITY error;
   END PROCESS P1;
 
