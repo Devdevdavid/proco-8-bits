@@ -62,11 +62,11 @@ BEGIN  -- ARCHITECTURE rtl
   );
 
   P1 : PROCESS IS
-    VARIABLE var_i_mem_data : integer := 1;
+    VARIABLE var_i_mem_data : integer := 32;
     VARIABLE var_o_mem_data : integer := 0;
     VARIABLE var_o_mem_data_old : integer := 0;
   BEGIN  -- PROCESS
-
+    wait for 10 ns;
     wait until rising_edge(clk);
 
     -- Fetch operands
@@ -87,18 +87,21 @@ BEGIN  -- ARCHITECTURE rtl
     s_ld_accu <= '0';
     s_ld_carry <= '0';
 
+    -- Read value on falling edge
+    wait until falling_edge(clk);
     var_o_mem_data := to_integer(unsigned(s_o_mem_data));
 
     -- Error message
-    ASSERT var_o_mem_data = var_o_mem_data_old + var_i_mem_data;
+    ASSERT ((var_o_mem_data = (var_o_mem_data_old + var_i_mem_data)) and s_carry = '0') 
+        or ((var_o_mem_data = (var_o_mem_data_old + var_i_mem_data - 256)) and s_carry = '1')
       REPORT "ERROR: "& integer'image(var_o_mem_data_old) &" + "& integer'image(var_i_mem_data) &" != "& integer'image(var_o_mem_data) 
       SEVERITY error;
   END PROCESS P1;
 
-  st_p : process is
+  reset_p : process is
   begin
     reset <= '1';
-    wait for 20 ns;
+    wait for 10 ns;
     reset <= '0';
     wait;
   end process;

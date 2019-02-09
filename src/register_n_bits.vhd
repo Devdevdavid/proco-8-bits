@@ -19,21 +19,18 @@ port (
 end register_n_bits;
 
 architecture rtl of register_n_bits is
------- Signals -------------------
-    signal s_data : std_logic_vector(N-1 downto 0);
 begin
     -- Copy input to output on clk if i_load is high
     process(reset, clk, i_load, i_data) is
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                s_data <= (others => '0');
+                o_data <= (others => '0');
             elsif i_load = '1' then
-                s_data <= i_data;
+                o_data <= i_data;
+            else
+                null;
             end if;
         end if;
     end process;
-
-    o_data <= s_data;
-
 end rtl;

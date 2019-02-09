@@ -17,21 +17,19 @@ port (
 end flipflop;
 
 architecture rtl of flipflop is
------- Signals -------------------
-    signal s_data : std_logic;
 begin
     -- Copy input to output on clk if i_load is high
-    process(reset, clk, i_load, i_data) is
+    process(reset, clk, i_load, i_init, i_data) is
     begin
         if rising_edge(clk) then
             if reset = '1' or i_init = '1' then
-                s_data <= '0';
+                o_data <= '0';
             elsif i_load = '1' then
-                s_data <= i_data;
+                o_data <= i_data;
+            else
+                null;
             end if;
         end if;
     end process;
-
-    o_data <= s_data;
 
 end rtl;
