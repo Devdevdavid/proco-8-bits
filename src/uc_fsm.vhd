@@ -3,13 +3,16 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity uc_fsm is
+generic (
+    OP_CODE_LENGTH : integer := 2                          -- Number of bit for operation code
+);
 port (
 ------ Globally routed signals -------
     reset         : in    std_logic;
     clk           : in    std_logic;
 ------ Input data --------------------
-    i_carry       : in    std_logic;                      -- Carry bit from UT
-    i_op_code     : in    std_logic_vector(1 downto 0);   -- Operation code
+    i_carry       : in    std_logic;                       -- Carry bit from UT
+    i_op_code     : in    std_logic_vector(OP_CODE_LENGTH - 1 downto 0);    -- Operation code
 ------ Output data -------------------
     o_init_carry  : out    std_logic;                      -- Init the carry flipflop
     o_init_cpt_add: out    std_logic;                      -- Init the address counter
@@ -27,29 +30,31 @@ port (
 end uc_fsm;
 
 architecture struct of uc_fsm is
-  type state_t is ( -- Define the states of the fsm
-    INIT,
-    FETCH_INS,
-    DECODE,
-    FETCH_OPERAND,
-    EXEC_UAL,
-    EXEC_STA,
-    EXEC_JCC
-  );
-  signal cur_state : state_t;    		                  -- Curent state of the fsm
-  signal next_state : state_t;    		                -- NeXT state of the fsm
+------ Type -------------------
+    type state_t is ( -- Define the states of the fsm
+        INIT,
+        FETCH_INS,
+        DECODE,
+        FETCH_OPERAND,
+        EXEC_UAL,
+        EXEC_STA,
+        EXEC_JCC
+    );
+------ Signals -------------------
+    signal cur_state : state_t;                              -- Curent state of the fsm
+    signal next_state : state_t;                            -- NeXT state of the fsm
 begin
 
-  process (reset, clk) is
-  begin
-    if rising_edge(clk) then                
-      if reset = '1' then                     
-        cur_state <= INIT;
-      else
-        cur_state <= next_state;
-      end if;
-    end if;
-  end process;
+    process (reset, clk) is
+    begin
+        if rising_edge(clk) then                
+            if reset = '1' then                     
+                cur_state <= INIT;
+            else
+                cur_state <= next_state;
+            end if;
+        end if;
+    end process;
 
   -------------------------------------
   --              FSM                --
@@ -68,27 +73,27 @@ begin
       next_state <= FETCH_OPERAND;
 
     when FETCH_OPERAND =>
-      case (i_op_code) is
-        when "00" =>
-          next_state <= EXEC_UAL;
-        when "01" =>
-          next_state <= EXEC_UAL;
-        when "10" =>
-          next_state <= EXEC_STA;
-        when "11" =>
-          next_state <= EXEC_JCC;
+      case (to_integer(unsigned(i_op_code))) is
+        when 0 =>
+            next_state <= EXEC_UAL;
+        when 1 =>
+            next_state <= EXEC_UAL;
+        when 2 =>
+            next_state <= EXEC_STA;
+        when 3 =>
+            next_state <= EXEC_JCC;
         when others =>
-          next_state <= INIT;
+            next_state <= INIT;
       end case ;
 
     when EXEC_UAL =>
-      next_state <= FETCH_INS;
+        next_state <= FETCH_INS;
 
     when EXEC_STA =>
-      next_state <= FETCH_INS;
+        next_state <= FETCH_INS;
     
     when EXEC_JCC =>
-      next_state <= FETCH_INS;
+        next_state <= FETCH_INS;
     end case;
   end process;
 
@@ -101,102 +106,102 @@ begin
     if rising_edge(clk) then
       case (cur_state) is
         when INIT =>
-          o_init_carry   <= '1';
-          o_init_cpt_add <= '1';
-          o_ld_carry     <= '0';
-          o_ld_cpt_add   <= '0';
-          o_ld_inst      <= '0';
-          o_ld_accu      <= '0';
-          o_ld_mem       <= '0';
-          o_ld_mem_data  <= '0';
-          o_rw_mem_mode  <= '0';
-          o_en_cpt_add   <= '0';
-          o_selec_mux    <= '0';
-          o_selec_op     <= '0';
+            o_init_carry   <= '1';
+            o_init_cpt_add <= '1';
+            o_ld_carry     <= '0';
+            o_ld_cpt_add   <= '0';
+            o_ld_inst      <= '0';
+            o_ld_accu      <= '0';
+            o_ld_mem       <= '0';
+            o_ld_mem_data  <= '0';
+            o_rw_mem_mode  <= '0';
+            o_en_cpt_add   <= '0';
+            o_selec_mux    <= '0';
+            o_selec_op     <= '0';
     
         when FETCH_INS =>
-          o_init_carry   <= '0';
-          o_init_cpt_add <= '0';
-          o_ld_carry     <= '0';
-          o_ld_cpt_add   <= '0';
-          o_ld_inst      <= '1';
-          o_ld_accu      <= '0';
-          o_ld_mem       <= '1';
-          o_ld_mem_data  <= '0';
-          o_rw_mem_mode  <= '0';
-          o_en_cpt_add   <= '1';
-          o_selec_mux    <= '0';
-          o_selec_op     <= '0';
+            o_init_carry   <= '0';
+            o_init_cpt_add <= '0';
+            o_ld_carry     <= '0';
+            o_ld_cpt_add   <= '0';
+            o_ld_inst      <= '1';
+            o_ld_accu      <= '0';
+            o_ld_mem       <= '1';
+            o_ld_mem_data  <= '0';
+            o_rw_mem_mode  <= '0';
+            o_en_cpt_add   <= '1';
+            o_selec_mux    <= '0';
+            o_selec_op     <= '0';
     
         when DECODE =>
-          o_init_carry   <= '0';
-          o_init_cpt_add <= '0';
-          o_ld_carry     <= '0';
-          o_ld_cpt_add   <= '0';
-          o_ld_inst      <= '0';
-          o_ld_accu      <= '0';
-          o_ld_mem       <= '1';
-          o_ld_mem_data  <= '0';
-          o_rw_mem_mode  <= '0';
-          o_en_cpt_add   <= '0';
-          o_selec_mux    <= '1';
-          o_selec_op     <= '0';
+            o_init_carry   <= '0';
+            o_init_cpt_add <= '0';
+            o_ld_carry     <= '0';
+            o_ld_cpt_add   <= '0';
+            o_ld_inst      <= '0';
+            o_ld_accu      <= '0';
+            o_ld_mem       <= '1';
+            o_ld_mem_data  <= '0';
+            o_rw_mem_mode  <= '0';
+            o_en_cpt_add   <= '0';
+            o_selec_mux    <= '1';
+            o_selec_op     <= '0';
     
         when FETCH_OPERAND =>
-          o_init_carry   <= '0';
-          o_init_cpt_add <= '0';
-          o_ld_carry     <= '0';
-          o_ld_cpt_add   <= '0';
-          o_ld_inst      <= '0';
-          o_ld_accu      <= '0';
-          o_ld_mem       <= '0';
-          o_ld_mem_data  <= '1';
-          o_rw_mem_mode  <= '0';
-          o_en_cpt_add   <= '0';
-          o_selec_mux    <= '1';
-          o_selec_op     <= '0';
+            o_init_carry   <= '0';
+            o_init_cpt_add <= '0';
+            o_ld_carry     <= '0';
+            o_ld_cpt_add   <= '0';
+            o_ld_inst      <= '0';
+            o_ld_accu      <= '0';
+            o_ld_mem       <= '0';
+            o_ld_mem_data  <= '1';
+            o_rw_mem_mode  <= '0';
+            o_en_cpt_add   <= '0';
+            o_selec_mux    <= '1';
+            o_selec_op     <= '0';
     
         when EXEC_UAL =>
-          o_init_carry   <= '0';
-          o_init_cpt_add <= '0';
-          o_ld_carry     <= i_op_code(0);
-          o_ld_cpt_add   <= '0';
-          o_ld_inst      <= '0';
-          o_ld_accu      <= '1';
-          o_ld_mem       <= '0';
-          o_ld_mem_data  <= '0';
-          o_rw_mem_mode  <= '0';
-          o_en_cpt_add   <= '0';
-          o_selec_mux    <= '1';
-          o_selec_op     <= i_op_code(0);
+            o_init_carry   <= '0';
+            o_init_cpt_add <= '0';
+            o_ld_carry     <= i_op_code(0);
+            o_ld_cpt_add   <= '0';
+            o_ld_inst      <= '0';
+            o_ld_accu      <= '1';
+            o_ld_mem       <= '0';
+            o_ld_mem_data  <= '0';
+            o_rw_mem_mode  <= '0';
+            o_en_cpt_add   <= '0';
+            o_selec_mux    <= '1';
+            o_selec_op     <= i_op_code(0);
     
         when EXEC_STA =>
-          o_init_carry   <= '0';
-          o_init_cpt_add <= '0';
-          o_ld_carry     <= '0';
-          o_ld_cpt_add   <= '0';
-          o_ld_inst      <= '0';
-          o_ld_accu      <= '0';
-          o_ld_mem       <= '1';
-          o_ld_mem_data  <= '0';
-          o_rw_mem_mode  <= '1';
-          o_en_cpt_add   <= '0';
-          o_selec_mux    <= '1';
-          o_selec_op     <= '0';
+            o_init_carry   <= '0';
+            o_init_cpt_add <= '0';
+            o_ld_carry     <= '0';
+            o_ld_cpt_add   <= '0';
+            o_ld_inst      <= '0';
+            o_ld_accu      <= '0';
+            o_ld_mem       <= '1';
+            o_ld_mem_data  <= '0';
+            o_rw_mem_mode  <= '1';
+            o_en_cpt_add   <= '0';
+            o_selec_mux    <= '1';
+            o_selec_op     <= '0';
         
         when EXEC_JCC =>
-          o_init_carry   <= i_carry;                  -- Init carry only if needed
-          o_init_cpt_add <= '0';
-          o_ld_carry     <= '0';
-          o_ld_cpt_add   <= not i_carry;
-          o_ld_inst      <= '0';
-          o_ld_accu      <= '0';
-          o_ld_mem       <= '0';
-          o_ld_mem_data  <= '0';
-          o_rw_mem_mode  <= '0';
-          o_en_cpt_add   <= '0';
-          o_selec_mux    <= '1';
-          o_selec_op     <= '0';
+            o_init_carry   <= i_carry;                  -- Init carry only if needed
+            o_init_cpt_add <= '0';
+            o_ld_carry     <= '0';
+            o_ld_cpt_add   <= not i_carry;
+            o_ld_inst      <= '0';
+            o_ld_accu      <= '0';
+            o_ld_mem       <= '0';
+            o_ld_mem_data  <= '0';
+            o_rw_mem_mode  <= '0';
+            o_en_cpt_add   <= '0';
+            o_selec_mux    <= '1';
+            o_selec_op     <= '0';
       end case;
     end if;
   end process;

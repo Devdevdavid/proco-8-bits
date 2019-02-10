@@ -62,9 +62,9 @@ BEGIN  -- ARCHITECTURE rtl
     ELSE
       var_A := 0;
       IF (var_B < 10) THEN
-	      var_B := var_B + 1;
+          var_B := var_B + 1;
       ELSE
-	      var_B := 0;
+          var_B := 0;
       END IF;
     END IF;
 

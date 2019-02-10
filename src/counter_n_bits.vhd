@@ -14,9 +14,9 @@ port (
     i_enable     : in  std_logic;                        -- Enable (0: nothing, 1: counting clk)
     i_init       : in  std_logic;                        -- Reset counter value to 0
     i_load       : in  std_logic;                        -- Load i_data if high
-    i_data       : in  std_logic_vector(N-1 downto 0);     -- Input data bits
+    i_data       : in  std_logic_vector(N-1 downto 0);   -- Input data bits
 ------ Output data -------------------
-    o_data       : out std_logic_vector(N-1 downto 0)      -- Output data bits
+    o_data       : out std_logic_vector(N-1 downto 0)    -- Output data bits
 );
 end counter_n_bits;
 

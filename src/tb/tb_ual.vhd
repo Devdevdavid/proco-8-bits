@@ -12,7 +12,7 @@ ARCHITECTURE rtl OF tb_ual IS
   -- Declaration
   signal reset : std_logic := '0';
   signal clk : std_logic := '0';
-  signal s_selec_op : std_logic := '1';
+  signal s_selec_op : std_logic := '0';
   signal s_data_l : std_logic_vector(N-1 downto 0) := (others => '0');
   signal s_data_r : std_logic_vector(N-1 downto 0) := (others => '0');
   signal s_data : std_logic_vector(N-1 downto 0) := (others => '0');
@@ -83,9 +83,9 @@ BEGIN  -- ARCHITECTURE rtl
     ELSE
       var_l := 0;
       IF (var_r < 10) THEN
-	      var_r := var_r + 1;
+          var_r := var_r + 1;
       ELSE
-	      var_r := 0;
+          var_r := 0;
       END IF;
     END IF;
 

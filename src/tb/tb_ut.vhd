@@ -24,7 +24,7 @@ ARCHITECTURE rtl OF tb_ut IS
 
   component ut is
   generic (
-    N : integer := 8                                     -- Number of bit
+    DATA_LENGTH : integer := 8                           -- Number of bit
   );
   port (
   ------ Globally routed signals -------
@@ -47,7 +47,7 @@ BEGIN  -- ARCHITECTURE rtl
 
   ut_i : component ut
   generic map (
-    N => N
+    DATA_LENGTH => N
   )
   port map (
     reset => reset, 

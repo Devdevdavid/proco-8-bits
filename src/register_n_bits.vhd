@@ -20,6 +20,7 @@ end register_n_bits;
 
 architecture rtl of register_n_bits is
 begin
+    
     -- Copy input to output on clk if i_load is high
     process(reset, clk, i_load, i_data) is
     begin
@@ -31,4 +32,5 @@ begin
             end if;
         end if;
     end process;
+
 end rtl;

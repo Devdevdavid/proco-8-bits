@@ -18,12 +18,12 @@ src_array=(
     ./src/sync_ram.vhd
     ./src/cpu.vhd
 
-    ./src/tb/tb_cpu.vhd
     ./src/tb/tb_addi_n_bits.vhd
     ./src/tb/tb_ual.vhd
     ./src/tb/tb_ut.vhd
     ./src/tb/tb_uc_fsm.vhd
     ./src/tb/tb_uc.vhd
+    ./src/tb/tb_cpu.vhd
 )
 
 # Clean

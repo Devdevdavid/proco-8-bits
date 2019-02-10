@@ -27,6 +27,9 @@ ARCHITECTURE rtl OF tb_uc_fsm IS
   signal s_selec_op    : std_logic := '0';
 
   component uc_fsm is
+  generic (
+      OP_CODE_LENGTH : integer := 2                          -- Number of bit
+  );
   port (
   ------ Globally routed signals -------
       reset         : in    std_logic;
@@ -53,6 +56,9 @@ ARCHITECTURE rtl OF tb_uc_fsm IS
 BEGIN  -- ARCHITECTURE rtl
 
   uc_fsm_i : component uc_fsm
+  generic map (
+    OP_CODE_LENGTH => 2
+  )
   port map (
     reset => reset, 
     clk => clk, 
