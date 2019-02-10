@@ -1,0 +1,1008 @@
+$date
+  Sun Feb 10 11:28:13 2019
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$var reg 1 ! reset $end
+$var reg 1 " clk $end
+$var reg 1 # s_carry $end
+$var reg 8 $ s_i_mem_data[7:0] $end
+$var reg 6 % s_o_mem_data[5:0] $end
+$var reg 1 & s_init_carry $end
+$var reg 1 ' s_ld_carry $end
+$var reg 1 ( s_ld_accu $end
+$var reg 1 ) s_ld_mem $end
+$var reg 1 * s_ld_mem_data $end
+$var reg 1 + s_rw_mem_mode $end
+$var reg 1 , s_selec_op $end
+$scope module uc_i $end
+$var reg 1 - reset $end
+$var reg 1 . clk $end
+$var reg 1 / i_carry $end
+$var reg 8 0 i_mem_data[7:0] $end
+$var reg 6 1 o_mem_data[5:0] $end
+$var reg 1 2 o_init_carry $end
+$var reg 1 3 o_ld_carry $end
+$var reg 1 4 o_ld_accu $end
+$var reg 1 5 o_ld_mem $end
+$var reg 1 6 o_ld_mem_data $end
+$var reg 1 7 o_rw_mem_mode $end
+$var reg 1 8 o_selec_op $end
+$var reg 1 9 s_init_carry $end
+$var reg 1 : s_init_cpt_add $end
+$var reg 1 ; s_ld_carry $end
+$var reg 1 < s_ld_cpt_add $end
+$var reg 1 = s_ld_inst $end
+$var reg 1 > s_ld_accu $end
+$var reg 1 ? s_ld_mem $end
+$var reg 1 @ s_ld_mem_data $end
+$var reg 1 A s_rw_mem_mode $end
+$var reg 1 B s_en_cpt_add $end
+$var reg 1 C s_selec_mux $end
+$var reg 1 D s_selec_op $end
+$var reg 8 E s_cur_inst[7:0] $end
+$var reg 6 F s_mux_in_0[5:0] $end
+$var reg 6 G s_mux_in_1[5:0] $end
+$scope module uc_fsm_i $end
+$var reg 1 H reset $end
+$var reg 1 I clk $end
+$var reg 1 J i_carry $end
+$var reg 2 K i_op_code[1:0] $end
+$var reg 1 L o_init_carry $end
+$var reg 1 M o_init_cpt_add $end
+$var reg 1 N o_ld_carry $end
+$var reg 1 O o_ld_cpt_add $end
+$var reg 1 P o_ld_inst $end
+$var reg 1 Q o_ld_accu $end
+$var reg 1 R o_ld_mem $end
+$var reg 1 S o_ld_mem_data $end
+$var reg 1 T o_rw_mem_mode $end
+$var reg 1 U o_en_cpt_add $end
+$var reg 1 V o_selec_mux $end
+$var reg 1 W o_selec_op $end
+$comment cur_state is not handled $end
+$comment next_state is not handled $end
+$upscope $end
+$scope module add_counter $end
+$var reg 1 X reset $end
+$var reg 1 Y clk $end
+$var reg 1 Z i_enable $end
+$var reg 1 [ i_init $end
+$var reg 1 \ i_load $end
+$var reg 6 ] i_data[5:0] $end
+$var reg 6 ^ o_data[5:0] $end
+$var reg 6 _ s_data[5:0] $end
+$upscope $end
+$scope module carry_flipflop $end
+$var reg 1 ` reset $end
+$var reg 1 a clk $end
+$var reg 1 b i_select $end
+$var reg 6 c i_data_0[5:0] $end
+$var reg 6 d i_data_1[5:0] $end
+$var reg 6 e o_data[5:0] $end
+$var reg 6 f s_data[5:0] $end
+$upscope $end
+$scope module reg_inst $end
+$var reg 1 g reset $end
+$var reg 1 h clk $end
+$var reg 1 i i_load $end
+$var reg 8 j i_data[7:0] $end
+$var reg 8 k o_data[7:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+1!
+0"
+0#
+b00000000 $
+bUUUUUU %
+U&
+U'
+U(
+U)
+U*
+U+
+U,
+1-
+0.
+0/
+b00000000 0
+bUUUUUU 1
+U2
+U3
+U4
+U5
+U6
+U7
+U8
+09
+U:
+0;
+U<
+U=
+0>
+0?
+0@
+0A
+UB
+UC
+0D
+bUUUUUUUU E
+bUUUUUU F
+b000000 G
+1H
+0I
+0J
+bUU K
+UL
+UM
+UN
+UO
+UP
+UQ
+UR
+US
+UT
+UU
+UV
+UW
+1X
+0Y
+UZ
+U[
+U\
+bUUUUUU ]
+bUUUUUU ^
+bUUUUUU _
+1`
+0a
+Ub
+bUUUUUU c
+b000000 d
+bUUUUUU e
+bUUUUUU f
+1g
+0h
+Ui
+b00000000 j
+bUUUUUUUU k
+#5000000
+1"
+b000000 %
+1&
+0'
+0(
+0)
+0*
+0+
+0,
+1.
+b000000 1
+12
+03
+04
+05
+06
+07
+08
+1:
+0<
+0=
+0B
+0C
+b00000000 E
+b000000 F
+1I
+b00 K
+1L
+1M
+0N
+0O
+0P
+0Q
+0R
+0S
+0T
+0U
+0V
+0W
+1Y
+0Z
+1[
+0\
+b000000 ]
+b000000 ^
+b000000 _
+1a
+0b
+b000000 c
+b000000 e
+b000000 f
+1h
+0i
+b00000000 k
+#10000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#15000000
+0!
+1"
+0-
+1.
+0H
+1I
+0X
+1Y
+0`
+1a
+0g
+1h
+#20000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#25000000
+1"
+1.
+1I
+1Y
+1a
+1h
+#30000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#35000000
+1"
+0&
+1)
+1.
+02
+15
+0:
+1=
+1B
+1I
+0L
+0M
+1P
+1R
+1U
+1Y
+1Z
+0[
+1a
+1h
+1i
+#40000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#45000000
+1"
+0)
+1.
+05
+0=
+0B
+1C
+b000001 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000001 ^
+b000001 _
+1a
+1b
+b000001 c
+1h
+0i
+#50000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#55000000
+1"
+1)
+1*
+1.
+15
+16
+1I
+1R
+1S
+1Y
+1a
+1h
+#60000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#65000000
+1"
+1(
+0)
+0*
+1.
+14
+05
+06
+1I
+1Q
+0R
+0S
+1Y
+1a
+1h
+#70000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#75000000
+1"
+0(
+1)
+1.
+04
+15
+1=
+1B
+0C
+1I
+1P
+0Q
+1R
+1U
+0V
+1Y
+1Z
+1a
+0b
+1h
+1i
+#80000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#85000000
+1"
+b000001 %
+0)
+1.
+b000001 1
+05
+0=
+0B
+1C
+b000010 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000010 ^
+b000010 _
+1a
+1b
+b000010 c
+b000001 e
+b000001 f
+1h
+0i
+#90000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#95000000
+1"
+b000000 %
+1)
+1*
+1.
+b000000 1
+15
+16
+1I
+1R
+1S
+1Y
+1a
+b000000 e
+b000000 f
+1h
+#100000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#105000000
+1"
+1(
+0)
+0*
+1.
+14
+05
+06
+1I
+1Q
+0R
+0S
+1Y
+1a
+1h
+#110000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#115000000
+1"
+0(
+1)
+1.
+04
+15
+1=
+1B
+0C
+1I
+1P
+0Q
+1R
+1U
+0V
+1Y
+1Z
+1a
+0b
+1h
+1i
+#120000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#125000000
+1"
+b000010 %
+0)
+1.
+b000010 1
+05
+0=
+0B
+1C
+b000011 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000011 ^
+b000011 _
+1a
+1b
+b000011 c
+b000010 e
+b000010 f
+1h
+0i
+#130000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#135000000
+1"
+b000000 %
+1)
+1*
+1.
+b000000 1
+15
+16
+1I
+1R
+1S
+1Y
+1a
+b000000 e
+b000000 f
+1h
+#140000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#145000000
+1"
+1(
+0)
+0*
+1.
+14
+05
+06
+1I
+1Q
+0R
+0S
+1Y
+1a
+1h
+#150000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#155000000
+1"
+0(
+1)
+1.
+04
+15
+1=
+1B
+0C
+1I
+1P
+0Q
+1R
+1U
+0V
+1Y
+1Z
+1a
+0b
+1h
+1i
+#160000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#165000000
+1"
+b000011 %
+0)
+1.
+b000011 1
+05
+0=
+0B
+1C
+b000100 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000100 ^
+b000100 _
+1a
+1b
+b000100 c
+b000011 e
+b000011 f
+1h
+0i
+#170000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#175000000
+1"
+b000000 %
+1)
+1*
+1.
+b000000 1
+15
+16
+1I
+1R
+1S
+1Y
+1a
+b000000 e
+b000000 f
+1h
+#180000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#185000000
+1"
+1(
+0)
+0*
+1.
+14
+05
+06
+1I
+1Q
+0R
+0S
+1Y
+1a
+1h
+#190000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#195000000
+1"
+0(
+1)
+1.
+04
+15
+1=
+1B
+0C
+1I
+1P
+0Q
+1R
+1U
+0V
+1Y
+1Z
+1a
+0b
+1h
+1i
+#200000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#205000000
+1"
+b000100 %
+0)
+1.
+b000100 1
+05
+0=
+0B
+1C
+b000101 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000101 ^
+b000101 _
+1a
+1b
+b000101 c
+b000100 e
+b000100 f
+1h
+0i
+#210000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#215000000
+1"
+b000000 %
+1)
+1*
+1.
+b000000 1
+15
+16
+1I
+1R
+1S
+1Y
+1a
+b000000 e
+b000000 f
+1h
+#220000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#225000000
+1"
+1(
+0)
+0*
+1.
+14
+05
+06
+1I
+1Q
+0R
+0S
+1Y
+1a
+1h
+#230000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#235000000
+1"
+0(
+1)
+1.
+04
+15
+1=
+1B
+0C
+1I
+1P
+0Q
+1R
+1U
+0V
+1Y
+1Z
+1a
+0b
+1h
+1i
+#240000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#245000000
+1"
+b000101 %
+0)
+1.
+b000101 1
+05
+0=
+0B
+1C
+b000110 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000110 ^
+b000110 _
+1a
+1b
+b000110 c
+b000101 e
+b000101 f
+1h
+0i
+#250000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#255000000
+1"
+b000000 %
+1)
+1*
+1.
+b000000 1
+15
+16
+1I
+1R
+1S
+1Y
+1a
+b000000 e
+b000000 f
+1h
+#260000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#265000000
+1"
+1(
+0)
+0*
+1.
+14
+05
+06
+1I
+1Q
+0R
+0S
+1Y
+1a
+1h
+#270000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#275000000
+1"
+0(
+1)
+1.
+04
+15
+1=
+1B
+0C
+1I
+1P
+0Q
+1R
+1U
+0V
+1Y
+1Z
+1a
+0b
+1h
+1i
+#280000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#285000000
+1"
+b000110 %
+0)
+1.
+b000110 1
+05
+0=
+0B
+1C
+b000111 F
+1I
+0P
+0R
+0U
+1V
+1Y
+0Z
+b000111 ^
+b000111 _
+1a
+1b
+b000111 c
+b000110 e
+b000110 f
+1h
+0i
+#290000000
+0"
+0.
+0I
+0Y
+0a
+0h
+#295000000
+1"
+b000000 %
+1)
+1*
+1.
+b000000 1
+15
+16
+1I
+1R
+1S
+1Y
+1a
+b000000 e
+b000000 f
+1h
+#300000000
+0"
+0.
+0I
+0Y
+0a
+0h

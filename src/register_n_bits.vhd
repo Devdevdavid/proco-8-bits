@@ -28,8 +28,6 @@ begin
                 o_data <= (others => '0');
             elsif i_load = '1' then
                 o_data <= i_data;
-            else
-                null;
             end if;
         end if;
     end process;
