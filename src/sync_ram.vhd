@@ -44,7 +44,7 @@ impure function init_ram(ram_file_name : in string) return ram_t is
 end function;
 
 ------ Signals -------------------
-    signal ram : ram_t := init_ram("./src/ram.data");
+    signal ram : ram_t := init_ram("./src/ram_2nd_prog.data");
     signal read_address : std_logic_vector(i_address'range);
 begin
 

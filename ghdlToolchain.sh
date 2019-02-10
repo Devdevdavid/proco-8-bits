@@ -1,7 +1,7 @@
 #!/bin/sh
 cc=ghdl
 topLayerName=tb_cpu
-simuDurationNs=500
+simuDurationNs=1500
 opt=--ieee=synopsys
 
 src_array=(
