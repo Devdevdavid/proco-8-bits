@@ -1,3 +1,10 @@
+-------------------------------
+-- Project  : Proco-8bits
+-- Date     : Jan. 2019
+-- Author   : D.DEVANT
+-- School   : ENSEIRB-MATMECA
+-- Desc     : Full adder n bits
+-------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
