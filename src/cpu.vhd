@@ -20,6 +20,7 @@ port (
     clk           : in  std_logic;                       -- Input clock
     ce            : in  std_logic;                       -- Clock enable
 ------ Output data -------------------
+    o_mem_address : out std_logic_vector(ADD_LENGTH - 1 downto 0);  -- Current Memory address
     o_mem_in_data : out std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0); -- Input data bus from memory
     o_mem_out_data: out std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0)  -- Output data bus to memory
 );
@@ -166,5 +167,6 @@ begin
     -- Permanent
     o_mem_in_data <= s_mem_in;
     o_mem_out_data <= s_mem_out;
+    o_mem_address <= s_mem_address;
 
 end rtl;

@@ -30,6 +30,7 @@ ARCHITECTURE rtl OF tb_ut IS
   ------ Globally routed signals -------
     reset        : in  std_logic;                        -- Reset input  
     clk          : in  std_logic;                        -- Input clock
+    ce           : in  std_logic;                        -- Clock enable
   ------ Input data --------------------
     i_mem_data   : in  std_logic_vector(N-1 downto 0);   -- Incomming data from the memory
     i_selec_op   : in  std_logic;                        -- Operation selection (0: NOR, 1: ADD)
@@ -52,6 +53,7 @@ BEGIN  -- ARCHITECTURE rtl
   port map (
     reset => reset, 
     clk => clk, 
+    ce => '1', 
     i_mem_data => s_i_mem_data, 
     i_selec_op => s_selec_op,
     i_ld_mem_data => s_ld_mem_data,

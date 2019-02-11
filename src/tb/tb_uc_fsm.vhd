@@ -34,6 +34,7 @@ ARCHITECTURE rtl OF tb_uc_fsm IS
   ------ Globally routed signals -------
       reset         : in    std_logic;
       clk           : in    std_logic;
+      ce            : in    std_logic;
   ------ Input data --------------------
       i_carry       : in    std_logic;                      -- Carry bit from UT
       i_op_code     : in    std_logic_vector(1 downto 0);   -- Operation code
@@ -62,6 +63,7 @@ BEGIN  -- ARCHITECTURE rtl
   port map (
     reset => reset, 
     clk => clk, 
+    ce => '1', 
     i_carry => s_carry, 
     i_op_code => s_op_code, 
     o_init_carry   => s_init_carry,

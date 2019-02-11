@@ -33,6 +33,7 @@ ARCHITECTURE rtl OF tb_uc IS
   ------ Globally routed signals -------
     reset         : in  std_logic;                        -- Reset input  
     clk           : in  std_logic;                        -- Input clock
+    ce            : in  std_logic;                        -- Clock enable
   ------ Input data --------------------
     i_carry       : in  std_logic;                        -- Carry from UT
     i_mem_data    : in  std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0);   -- Incomming data from the memory
@@ -59,6 +60,7 @@ BEGIN  -- ARCHITECTURE rtl
   port map (
     reset => reset, 
     clk => clk, 
+    ce => '1', 
     i_carry => s_carry, 
     i_mem_data => s_i_mem_data, 
     o_mem_data => s_o_mem_data, 
