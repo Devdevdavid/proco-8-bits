@@ -21,6 +21,7 @@ src_array=(
     ./src/tb/tb_addi_n_bits.vhd
     ./src/tb/tb_mux_2_in.vhd
     ./src/tb/tb_ual.vhd
+    ./src/tb/tb_flipflop.vhd
     ./src/tb/tb_ut.vhd
     ./src/tb/tb_uc_fsm.vhd
     ./src/tb/tb_uc.vhd

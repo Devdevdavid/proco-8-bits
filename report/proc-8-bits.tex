@@ -80,7 +80,58 @@
 	\par Cette mémoire de 64 octets est une mémoire simple accès avec un port de lecture et un second d'écriture. Elle est adressée sur 6 bits et manipule des valeurs sur 8 bits.
 	
 	\section{Tests}
-	\par Chaque composant a été testé indépendemment à l'aide de "testbench". Une fois fonctionnels, nous les avons implémentés dans le top layer "CPU". Pour valider le projet, nous avons écrit les deux programmes de test vu en cours dans des fichiers "*.data". Ces fichiers sont chargés dans la mémoire juste avant la simulation. En observant les derniers accès mémoire du programme, on observe que les résultats sont cohérent avec les résultats attendus.
+    \par Chaque composant a été testé indépendemment à l'aide de "testbench". Une fois fonctionnels, nous les avons implémentés dans le top layer "CPU". Pour valider le projet, nous avons écrit les deux programmes de test vu en cours dans des fichiers "*.data". Ces fichiers sont chargés dans la mémoire juste avant la simulation. En observant les derniers accès mémoire du programme, on observe que les résultats sont cohérent avec les résultats attendus.
+    \subsection{Additionneur N-bits}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{../doc/tb_screen/addi_n_bits.png}
+        \caption{Diagramme temporel de l'additionneur N-bits}
+        \label{fig:diag_tb_addi_n_bits}
+    \end{figure}
+
+    \subsection{Flipflop}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{../doc/tb_screen/flipflop.png}
+        \caption{Diagramme temporel de la flipflop de retenue}
+        \label{fig:diag_tb_flipflop}
+    \end{figure}
+
+    \subsection{Multiplexeur à 2 entrées}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{../doc/tb_screen/mux_2_in.png}
+        \caption{Diagramme temporel du multiplexeur}
+        \label{fig:diag_tb_mux_2_in}
+    \end{figure}
+
+    \subsection{Unité de calcul}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{../doc/tb_screen/ual.png}
+        \caption{Diagramme temporel de l'unité de calcul UAL}
+        \label{fig:diag_tb_ual}
+    \end{figure}
+
+    \newpage
+    
+    \subsection{CPU - Programme du PGCD}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{../doc/tb_screen/cpu_2nd_prog.png}
+        \caption{Diagramme temporel du CPU avec programme de PGCD}
+        \label{fig:diag_tb_cpu_2nd_prog}
+    \end{figure}
+
+    \subsection{FSM}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=\textwidth]{../doc/tb_screen/fsm.png}
+        \caption{Diagramme temporel de la FSM}
+        \label{fig:diag_tb_fsm}
+    \end{figure}
+
+    \newpage
 
     \section{Conclusion}
     \par Ce projet nous a fait découvrir les fonctionnements internes d'un processeur ainsi que les problématiques d'accès mémoire. L'implémentation en VHDL nous a permis de se remémorer les bonnes pratiques des langages de description. De plus, la réutilisation des nos anciens composants VHDL nous a montré qu'il était important de bien structurer et bien documenter nos fichiers pour être plus efficaces dans nos futurs projet.

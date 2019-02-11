@@ -93,8 +93,7 @@ i_gen_ce              : gen_ce  port map(clk,reset,ce195k,ce25M,ce1s);
 --LED <= not DataInMem(7) & not DataInMem(6) & not DataInMem(5) & not DataInMem(4) & not DataInMem(3) & not DataInMem(2) & not DataInMem(1) & not DataInMem(0);
 --LED <= DataInMem;
 --LED <= AdrMSB_4bits&AdrLSB;
-LED <= DataMSB&DataLSB;
---LED <= "00001111";
+LED <= DataMSB & DataLSB;
 LEDg <= '1';
 end acces_carte_a;
 
