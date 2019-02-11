@@ -48,6 +48,7 @@ BEGIN  -- ARCHITECTURE rtl
   );
 
   P1 : PROCESS IS
+    VARIABLE var_i : integer := 0;
     VARIABLE var_l : integer := 0;
     VARIABLE var_r : integer := 0;
     VARIABLE var_o : integer := 0;
@@ -59,35 +60,33 @@ BEGIN  -- ARCHITECTURE rtl
     
     wait until rising_edge(clk);
 
-    s_selec_op <= '0'; -- NOR Operation
     var_o := to_integer(unsigned(s_data));
 
     -- Error message
-    ASSERT var_o = to_integer(unsigned(s_data_l nor s_data_r))
-      REPORT "ERROR: "& integer'image(var_l) &" nor "& integer'image(var_r) &" != "& integer'image(var_o) 
-      SEVERITY error;
-
-    -- wait until rising_edge(clk);
-
-    -- s_selec_op <= '1'; -- ADD Operation
-    -- var_o := to_integer(unsigned(s_data));
-
-    -- -- Error message
-    -- ASSERT var_o = (var_l + var_r)
-    --   REPORT "ERROR: "& integer'image(var_l) &"+"& integer'image(var_r) &" != "& integer'image(var_o) 
-    --   SEVERITY error;
+    if (s_selec_op = '0') then
+      ASSERT var_o = to_integer(unsigned(s_data_l nor s_data_r))
+        REPORT "ERROR: "& integer'image(var_l) &" nor "& integer'image(var_r) &" != "& integer'image(var_o) 
+        SEVERITY error;
+    else
+      ASSERT var_o = (var_l + var_r)
+        REPORT "ERROR: "& integer'image(var_l) &"+"& integer'image(var_r) &" != "& integer'image(var_o) 
+        SEVERITY error;
+    end if;
 
     -- Change variables
-    IF (var_l < 62) THEN
-      var_l := var_l + 1;
-    ELSE
-      var_l := 0;
-      IF (var_r < 10) THEN
-          var_r := var_r + 1;
-      ELSE
-          var_r := 0;
-      END IF;
-    END IF;
+    case (var_i) is
+      when 0 => var_l := 0; var_r := 0; s_selec_op <= '1';
+      when 1 => var_l := 0; var_r := 1; s_selec_op <= '1';
+      when 2 => var_l := 255; var_r := 1; s_selec_op <= '1';
+      when 3 => var_l := 1; var_r := 255; s_selec_op <= '1';
+      when 4 => var_l := 255; var_r := 255; s_selec_op <= '1';
+      when 5 => var_l := 0; var_r := 0; s_selec_op <= '0';
+      when 6 => var_l := 0; var_r := 1; s_selec_op <= '0';
+      when 7 => var_l := 1; var_r := 0; s_selec_op <= '0';
+      when 8 => var_l := 1; var_r := 255; s_selec_op <= '0';
+      when others => wait;
+    end case;
+    var_i := var_i + 1;
 
   END PROCESS P1;
 

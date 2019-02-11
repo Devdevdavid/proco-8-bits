@@ -7,7 +7,7 @@ END ENTITY tb_addi_n_bits;
 
 ARCHITECTURE rtl OF tb_addi_n_bits IS
 
-  CONSTANT N : integer := 6;
+  CONSTANT N : integer := 8;
 
   -- Declaration
   SIGNAL sig_A : std_logic_vector(N-1 DOWNTO 0) := (OTHERS => '0');
@@ -43,6 +43,7 @@ BEGIN  -- ARCHITECTURE rtl
 
 
   P1 : PROCESS IS
+    VARIABLE var_i : integer := 0;
     VARIABLE var_A : integer := 0;
     VARIABLE var_B : integer := 0;
     VARIABLE var_S : integer := 0;
@@ -57,16 +58,18 @@ BEGIN  -- ARCHITECTURE rtl
       SEVERITY error;
 
     -- Change variables
-    IF (var_A < 62) THEN
-      var_A := var_A + 1;
-    ELSE
-      var_A := 0;
-      IF (var_B < 10) THEN
-          var_B := var_B + 1;
-      ELSE
-          var_B := 0;
-      END IF;
-    END IF;
+    case (var_i) is
+      when 0 => var_A := 0; var_B := 0;
+      when 1 => var_A := 1; var_B := 0;
+      when 2 => var_A := 1; var_B := 1;
+      when 3 => var_A := 0; var_B := 1;
+      when 4 => var_A := 0; var_B := 1;
+      when 5 => var_A := 255; var_B := 1;
+      when 6 => var_A := 1; var_B := 255;
+      when 7 => var_A := 255; var_B := 255;
+      when others => wait;
+    end case;
+    var_i := var_i + 1;
 
     -- Update signals
     sig_A <= std_logic_vector(to_unsigned(var_A, n));

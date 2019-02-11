@@ -56,8 +56,8 @@ architecture rtl of sync_ram is
         return ram_to_return;
     end function;
 ------ Signals -------------------
-    --signal ram : ram_t := init_ram("./src/ram_2nd_prog.data");
-    signal ram : ram_t := init_ram("H:\Documents\2A\Proco\Proco 8bit\proco-8-bits-src\src\ram_2nd_prog.data");
+    signal ram : ram_t := init_ram("./src/ram_2nd_prog.data");
+    --signal ram : ram_t := init_ram("H:\Documents\2A\Proco\Proco 8bit\proco-8-bits-src\src\ram_2nd_prog.data");
     signal read_address : std_logic_vector(i_address'range) := (others => '0');
 begin
 
@@ -65,13 +65,11 @@ begin
     ram_proc: process(clk) is
     begin
         if falling_edge(clk) then
-            if ce = '1' then
+            if ce = '1' and i_load = '1' then
                 if i_rw_mode = '1' then -- Write mode
                     ram(to_integer(unsigned(i_address))) <= i_data;
                 end if;
-                if i_load = '1' then -- Enabled
-                    read_address <= i_address;
-                end if;
+                read_address <= i_address;
             end if;
         end if;
     end process ram_proc;
