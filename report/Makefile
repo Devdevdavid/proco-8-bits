@@ -1,5 +1,5 @@
 
-TARGET_NAME   = OSE
+TARGET_NAME   = proc-8-bits
 
 all: $(TARGET_NAME).pdf
 

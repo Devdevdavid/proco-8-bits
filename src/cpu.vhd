@@ -17,7 +17,8 @@ generic (
 port (
 ------ Globally routed signals -------
     reset         : in  std_logic;                       -- Reset input  
-    clk           : in  std_logic                        -- Input clock
+    clk           : in  std_logic;                       -- Input clock
+    ce            : in  std_logic                        -- Clock enable
 );
 end cpu;
 
@@ -45,6 +46,7 @@ architecture rtl of cpu is
     ------ Globally routed signals -------
         reset        : in  std_logic;                        -- Reset input  
         clk          : in  std_logic;                        -- Input clock
+        ce           : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_mem_data   : in  std_logic_vector(DATA_LENGTH-1 downto 0);   -- Incomming data from the memory
         i_selec_op   : in  std_logic;                        -- Operation selection (0: NOR, 1: ADD)
@@ -67,6 +69,7 @@ architecture rtl of cpu is
     ------ Globally routed signals -------
         reset         : in  std_logic;                        -- Reset input  
         clk           : in  std_logic;                        -- Input clock
+        ce            : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_carry       : in  std_logic;                        -- Carry from UT
         i_mem_data    : in  std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0);   -- Incomming data from the memory
@@ -91,6 +94,7 @@ architecture rtl of cpu is
     port (
     ------ Globally routed signals -------
         clk           : in  std_logic;                        -- Input clock
+        ce            : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_load        : in  std_logic;                        -- Load Memory
         i_rw_mode     : in  std_logic;                        -- Read/Write Mode (0: Read, 1: Write)
@@ -110,6 +114,7 @@ begin
     port map (
         reset => reset, 
         clk => clk, 
+        ce => ce, 
         i_carry => s_carry, 
         i_mem_data => s_mem_out, 
         o_mem_data => s_mem_address, 
@@ -129,6 +134,7 @@ begin
     port map (
         reset => reset, 
         clk => clk, 
+        ce => ce, 
         i_mem_data => s_mem_out, 
         i_selec_op => s_selec_op,
         i_ld_mem_data => s_ld_mem_data,
@@ -146,6 +152,7 @@ begin
     )
     port map (
         clk => clk, 
+        ce => ce, 
         i_load => s_ld_mem, 
         i_rw_mode => s_rw_mem_mode, 
         i_address => s_mem_address, 

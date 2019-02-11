@@ -17,6 +17,7 @@ port (
 ------ Globally routed signals -------
     reset        : in  std_logic;                        -- Reset input  
     clk          : in  std_logic;                        -- Input clock
+    ce           : in  std_logic;                        -- Clock enable
 ------ Input data --------------------
     i_mem_data   : in  std_logic_vector(DATA_LENGTH-1 downto 0);   -- Incomming data from the memory
     i_selec_op   : in  std_logic;                        -- Operation selection (0: NOR, 1: ADD)
@@ -46,6 +47,7 @@ architecture rtl of ut is
     ------ Globally routed signals -------
         reset        : in  std_logic;                        -- Reset input  
         clk          : in  std_logic;                        -- Input clock
+        ce           : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_load       : in  std_logic;                        -- Load input (0: Nothing, 1: Copy input to output)
         i_data       : in  std_logic_vector(N-1 downto 0);   -- Input data bits
@@ -59,6 +61,7 @@ architecture rtl of ut is
     ------ Globally routed signals -------
         reset        : in  std_logic;                        -- Reset input  
         clk          : in  std_logic;                        -- Input clock
+        ce           : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_load       : in  std_logic;                        -- Load input (0: Nothing, 1: Copy input to output)
         i_init       : in  std_logic;                        -- Init input (0: Nothing, 1: Set output to 0)
@@ -93,6 +96,7 @@ begin
     port map (
         reset => reset,
         clk => clk,
+        ce => ce,
         i_load => i_ld_mem_data, 
         i_data => i_mem_data, 
         o_data => s_mem_data_to_ual 
@@ -106,6 +110,7 @@ begin
     port map (
         reset => reset,
         clk => clk,
+        ce => ce,
         i_load => i_ld_accu, 
         i_data => s_ual_result, 
         o_data => s_accu_data 
@@ -116,6 +121,7 @@ begin
     port map (
         reset => reset,
         clk => clk,
+        ce => ce,
         i_load => i_ld_carry, 
         i_init => i_init_carry,
         i_data => s_carry, 
