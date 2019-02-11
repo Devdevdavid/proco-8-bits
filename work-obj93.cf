@@ -1,55 +1,55 @@
 v 3
-file . "./src/tb/tb_uc_fsm.vhd" "20190210161652.000" "20190210174310.454":
-  entity tb_uc_fsm at 1( 0) + 0 on 5063;
-  architecture rtl of tb_uc_fsm at 8( 113) + 0 on 5064;
-file . "./src/tb/tb_ual.vhd" "20190210160722.000" "20190210174310.427":
-  entity tb_ual at 1( 0) + 0 on 5059;
-  architecture rtl of tb_ual at 8( 107) + 0 on 5060;
-file . "./src/tb/tb_cpu.vhd" "20190210164309.000" "20190210174310.480":
-  entity tb_cpu at 1( 0) + 0 on 5067;
-  architecture rtl of tb_cpu at 8( 107) + 0 on 5068;
-file . "./src/sync_ram.vhd" "20190210163625.000" "20190210174310.384":
-  entity sync_ram at 1( 0) + 0 on 5053;
-  architecture rtl of sync_ram at 25( 994) + 0 on 5054;
-file . "./src/uc_fsm.vhd" "20190210162558.000" "20190210174310.357":
-  entity uc_fsm at 1( 0) + 0 on 5049;
-  architecture struct of uc_fsm at 32( 1675) + 0 on 5050;
-file . "./src/ual.vhd" "20190210154504.000" "20190210174310.332":
-  entity ual at 1( 0) + 0 on 5045;
-  architecture rtl of ual at 20( 697) + 0 on 5046;
-file . "./src/addi_1_bit.vhd" "20190210154958.000" "20190210174310.303":
-  entity addi_1_bit at 1( 0) + 0 on 5041;
-  architecture rtl of addi_1_bit at 17( 593) + 0 on 5042;
-file . "./src/flipflop.vhd" "20190210153606.000" "20190210174310.275":
-  entity flipflop at 1( 0) + 0 on 5037;
-  architecture rtl of flipflop at 19( 743) + 0 on 5038;
-file . "./src/register_n_bits.vhd" "20190210153658.000" "20190210174310.249":
-  entity register_n_bits at 1( 0) + 0 on 5033;
-  architecture rtl of register_n_bits at 21( 740) + 0 on 5034;
-file . "./src/mux_2_in.vhd" "20190210153635.000" "20190210174310.261":
-  entity mux_2_in at 1( 0) + 0 on 5035;
-  architecture rtl of mux_2_in at 19( 618) + 0 on 5036;
-file . "./src/counter_n_bits.vhd" "20190210153257.000" "20190210174310.290":
-  entity counter_n_bits at 1( 0) + 0 on 5039;
-  architecture struct of counter_n_bits at 23( 891) + 0 on 5040;
-file . "./src/addi_n_bits.vhd" "20190210153426.000" "20190210174310.317":
-  entity addi_n_bits at 1( 0) + 0 on 5043;
-  architecture rtl of addi_n_bits at 19( 603) + 0 on 5044;
-file . "./src/ut.vhd" "20190210154615.000" "20190210174310.345":
-  entity ut at 1( 0) + 0 on 5047;
-  architecture rtl of ut at 26( 1198) + 0 on 5048;
-file . "./src/uc.vhd" "20190210162717.000" "20190210174310.370":
-  entity uc at 1( 0) + 0 on 5051;
-  architecture rtl of uc at 30( 1493) + 0 on 5052;
-file . "./src/cpu.vhd" "20190210154917.000" "20190210174310.397":
-  entity cpu at 1( 0) + 0 on 5055;
-  architecture rtl of cpu at 17( 485) + 0 on 5056;
-file . "./src/tb/tb_addi_n_bits.vhd" "20190210153243.000" "20190210174310.410":
-  entity tb_addi_n_bits at 1( 0) + 0 on 5057;
-  architecture rtl of tb_addi_n_bits at 8( 123) + 0 on 5058;
-file . "./src/tb/tb_ut.vhd" "20190210160759.000" "20190210174310.441":
-  entity tb_ut at 1( 0) + 0 on 5061;
-  architecture rtl of tb_ut at 8( 105) + 0 on 5062;
-file . "./src/tb/tb_uc.vhd" "20190210094851.000" "20190210174310.467":
-  entity tb_uc at 1( 0) + 0 on 5065;
-  architecture rtl of tb_uc at 8( 105) + 0 on 5066;
+file . "./src/tb/tb_uc_fsm.vhd" "20190210161652.000" "20190211085454.642":
+  entity tb_uc_fsm at 1( 0) + 0 on 5099;
+  architecture rtl of tb_uc_fsm at 8( 113) + 0 on 5100;
+file . "./src/tb/tb_ual.vhd" "20190210160722.000" "20190211085454.615":
+  entity tb_ual at 1( 0) + 0 on 5095;
+  architecture rtl of tb_ual at 8( 107) + 0 on 5096;
+file . "./src/tb/tb_cpu.vhd" "20190210164309.000" "20190211085454.668":
+  entity tb_cpu at 1( 0) + 0 on 5103;
+  architecture rtl of tb_cpu at 8( 107) + 0 on 5104;
+file . "./src/sync_ram.vhd" "20190210165125.000" "20190211085454.574":
+  entity sync_ram at 8( 202) + 0 on 5089;
+  architecture rtl of sync_ram at 32( 1196) + 0 on 5090;
+file . "./src/uc_fsm.vhd" "20190210165223.000" "20190211085454.544":
+  entity uc_fsm at 8( 220) + 0 on 5085;
+  architecture struct of uc_fsm at 39( 1895) + 0 on 5086;
+file . "./src/ual.vhd" "20190210165150.000" "20190211085454.517":
+  entity ual at 8( 217) + 0 on 5081;
+  architecture rtl of ual at 27( 914) + 0 on 5082;
+file . "./src/addi_1_bit.vhd" "20190210164853.000" "20190211085454.488":
+  entity addi_1_bit at 8( 198) + 0 on 5077;
+  architecture rtl of addi_1_bit at 24( 791) + 0 on 5078;
+file . "./src/flipflop.vhd" "20190210165010.000" "20190211085454.459":
+  entity flipflop at 8( 215) + 0 on 5073;
+  architecture rtl of flipflop at 26( 958) + 0 on 5074;
+file . "./src/register_n_bits.vhd" "20190210165102.000" "20190211085454.426":
+  entity register_n_bits at 8( 199) + 0 on 5069;
+  architecture rtl of register_n_bits at 28( 939) + 0 on 5070;
+file . "./src/mux_2_in.vhd" "20190210165032.000" "20190211085454.440":
+  entity mux_2_in at 8( 202) + 0 on 5071;
+  architecture rtl of mux_2_in at 26( 820) + 0 on 5072;
+file . "./src/counter_n_bits.vhd" "20190210164923.000" "20190211085454.474":
+  entity counter_n_bits at 8( 196) + 0 on 5075;
+  architecture struct of counter_n_bits at 30( 1087) + 0 on 5076;
+file . "./src/addi_n_bits.vhd" "20190210164911.000" "20190211085454.503":
+  entity addi_n_bits at 8( 199) + 0 on 5079;
+  architecture rtl of addi_n_bits at 26( 802) + 0 on 5080;
+file . "./src/ut.vhd" "20190210165306.000" "20190211085454.530":
+  entity ut at 8( 196) + 0 on 5083;
+  architecture rtl of ut at 33( 1394) + 0 on 5084;
+file . "./src/uc.vhd" "20190210165245.000" "20190211085454.558":
+  entity uc at 8( 194) + 0 on 5087;
+  architecture rtl of uc at 37( 1687) + 0 on 5088;
+file . "./src/cpu.vhd" "20190210164946.000" "20190211085454.588":
+  entity cpu at 8( 206) + 0 on 5091;
+  architecture rtl of cpu at 24( 691) + 0 on 5092;
+file . "./src/tb/tb_addi_n_bits.vhd" "20190210153243.000" "20190211085454.601":
+  entity tb_addi_n_bits at 1( 0) + 0 on 5093;
+  architecture rtl of tb_addi_n_bits at 8( 123) + 0 on 5094;
+file . "./src/tb/tb_ut.vhd" "20190210160759.000" "20190211085454.628":
+  entity tb_ut at 1( 0) + 0 on 5097;
+  architecture rtl of tb_ut at 8( 105) + 0 on 5098;
+file . "./src/tb/tb_uc.vhd" "20190210094851.000" "20190211085454.655":
+  entity tb_uc at 1( 0) + 0 on 5101;
+  architecture rtl of tb_uc at 8( 105) + 0 on 5102;

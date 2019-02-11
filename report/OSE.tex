@@ -1,0 +1,146 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+\usepackage{caption}
+
+% =====================
+% DOCUMENT INFORMATION
+% =====================
+\title{CChat - Création d'un chat interprocessus en C - v1.2}
+\author{David DEVANT - Jérémie SANCHEZ}
+\date{\today}
+
+\begin{document}
+	% =====================
+	% FRONT MATTER
+	% =====================
+	\maketitle
+
+	\tableofcontents
+
+	\section*{Introduction}
+	\par Ce projet a pour but de nous familiariser avec l'utilisation des systèmes de communication interprocessus. Toutefois, l'architecture à utiliser étant libre, nous pouvons aussi bien partir sur une structure à base de tube, de FIFO, ou bien de queue de message. Le but final étant de faire communiquer deux applications au travers d'un serveur. Les deux utilisateurs doivent ainsi pourvoir envoyer et recevoir des messages depuis leur console.
+	\newpage
+	
+
+	% =====================
+	% MAIN MATTER
+	% =====================
+	\section{Récupérer les sources du projet}
+	\par Le dépot des sources a été effectué sur la patforme Thor de l'école. Il faut être connecté au CAS pour y accéder. Voici le lien du dépot :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item https://thor.enseirb-matmeca.fr/svn/free-cchat
+	\end{itemize}
+	\par Notons qu'un dossier "html" contient une documentation doxygène. Pour la lire, ouvrir le fichier "index.html".
+
+	\section{Structure du projet}
+	\par Le projet CChat est structuré en deux parties principales. La première est le serveur et la seconde est le client. Chaque partie doit être compilée indépendamment, toutefois, des fichiers sont partagés et présents dans les deux compilations. Notons que ceci est abstrait pour l'utilisateur qui n'aura qu'à lancer le makefile. (Voir README.md)
+	
+	\subsection{Le serveur}
+	\par Le serveur est l'organe central auquel les clients viendront se connecter. Lorsque le serveur démarre, il commence par créer une file de message (ou mailbox). Cette mailbox utilise un fichier pour être identifiée. Ainsi, si le nom du fichier de rendez-vous est connu, il est possible d'envoyer des messages au serveur.
+	\par Pour gérer la liste des clients connectés, le serveur utilise une base de données de taille fixe. Ceci implique que le nombre d'utilisateur simultané est limité. Ce choix a été privilégié par rapport à une allocation dynamique pour simplifier la compréhension du programme et se concentrer sur l'essentiel qui est la communication interprocessus.
+	\par Lorsque l'initialisation est terminée, le serveur entre dans une boucle infinie. La fonction msgrcv() est utilisée pour attendre un nouveau message. Dès lors qu'un message est reçu dans la mailbox, il est copié dans une structure de donnée pour être traité. Chaque message dispose d'un type, d'une adresse source, d'une adresse de destination et d'une chaine de 255 caractères. Notons que cette taille a été choisie arbitrairement.
+	\par Il existe 4 types de message différents. Ceux-ci ont une signification différente suivant si le destinataire est un serveur ou bien un client. Nous retrouverons donc une liste similaire dans la partie dédiée au client :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item MSG\_TYPE\_CONNECTION: Le serveur a reçu une demande de connexion d'un client. Il va donc enregistrer l'utilisateur si de la place est disponible. Le texte du message contient le pseudo de l'utilisateur
+		\item MSG\_TYPE\_DISCONNECTION: Le serveur a reçu une demande de déconnexion. L'utilisateur est par conséquent supprimé de la liste des utilisateurs enregistrés. Le texte du message est ignoré
+		\item MSG\_TYPE\_TEXT\_MSG: l'auteur de ce message souhaite envoyer un message texte au reste des clients. Si l'utilisateur n'est pas enregistré sur le serveur, le message est ignoré.
+		\item MSG\_TYPE\_POLLING: Le serveur reçoit ce type de message mais les ignores. Ce type de message est utilisé pour tester si la connexion est toujours active.
+	\end{itemize}
+	\par Le polling est déclenché par le serveur toutes les 10 secondes grâce à un signal ALARM pour vérifier que tous les clients enregistrés sont bien réactifs à la réception de message. Ainsi, si un utilisateur est déconnecté, l'envoi du polling échouera et le serveur supprimera le client de sa liste pour libérer une place.
+	\par Quand le serveur reçoit un signal d'interruption provenant de la console bash, un message de déconnexion est envoyé à tous les utilisateurs connectés pour les déconnecter. Ceci est appelé le "kick all".
+	\par Un utilisateur spécial nommé "Admin" est créé par le serveur pour prévoir de futurs comportements. Il serait entre autres possible d'envoyer des messages par le serveur pour notifier les clients des connexions/déconnexions des utilisateurs. Ces messages seraient alors signés "Admin".
+
+	\subsection{Le client}
+	\par Lors de l'initialisation du client, une duplication est réalisée pour faire apparaître deux processus. Le premier s'occupe de la partie réception des messages depuis le serveur tandis que le second gère les entrées utilisateurs et donc l'envoi de message. Voyons chacun d'entre eux plus précisément :
+	
+	\subsubsection{Le récepteur} 
+	\par Lorsque le process est créé, il commence par vérifier que le serveur est bien en ligne. Il tente une connexion en utilisant le même fichier de rendez-vous spécifié pour le serveur. S'il est possible de récupérer la file de message associée au fichier, alors le serveur est considéré en ligne.
+	\par Le processus entame alors la création de sa propre mailbox. Il choisit un nom de fichier pour sa mailbox (basé sur son PID) puis la crée. Cette file de message est le point d'entrée de la communication avec le client.
+	\par De même que le serveur, le processus récepteur va attendre l'arrivée d'un nouveau message dans sa queue de message. Chaque type de message est traité différemment :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item MSG\_TYPE\_CONNECTION: La réception d'un type connexion indique que la demande de connexion a été acceptée par le serveur.
+		\item MSG\_TYPE\_DISCONNECTION: Ce message signifie que le serveur indique au client qu'il a été déconnecté. Il peut être reçu en réponse à une demande de connexion à un serveur plein ou bien lorsque ce dernier s'arrête.
+		\item MSG\_TYPE\_TEXT\_MSG: Ceci est un message texte qui doit être affiché à l'écran.
+		\item MSG\_TYPE\_POLLING: Le client n'effectue aucun traitement sur ce type de message, toutefois, le fait de le recevoir indique au serveur que le client est toujours actif.
+	\end{itemize}
+
+	\subsubsection{L'émetteur} 
+	\par Le second processus gère l'interface entre l'utilisateur et l'application. Il lit les caractères tapés par l'utilisateur dans la console et les analyses. Si le texte tapé commence par un '/', il sera traité comme une commande sinon, le texte sera considéré comme un message texte.
+	\par Lorsque l'utilisateur envoie un message texte, un premier message est envoyé en local dans la mailbox du client lui-même. Le message est ainsi traité en local comme tout autre message provenant du serveur et permet donc l'affichage de ce dernier sur la console utilisateur. Ensuite, un second message est envoyé dans la mailbox du serveur pour être redirigé vers tous les clients actuellement connectés. 
+	\par Pour faciliter la frappe de l'utilisateur, l'application utilise la fonction readline() qui permet, à la manière d'un prompt bash, de proposer un historique et l'édition de la ligne de texte tapée. Cette fonction retourne une chaine de caractère qui est ensuite analysée pour savoir si c'est un message texte ou bien une commande. Tout message dépassant la taille maximale de 255 caractères sera tronqué et l'utilisateur sera notifié dans sa console. Il faut bien penser à libérer la mémoire par un free() lorsque la chaine n'est plus utilisée.
+	\par Les commandes gérées actuellement par le client sont les suivantes :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$}
+		\item "/help" ou "/" : Affiche l'aide
+		\item "/quit"        : Quitte l'application
+		\item "/who"    	 : Liste les utilisateurs connectés
+		\item "/msg"    	 : Envoi d'un message privé
+		\item "/pseudo" 	 : Change le pseudo du client
+	\end{itemize}
+
+	\subsubsection{Communication Émetteur/Récepteur}
+	\par Avant la séparation en deux processus, une mémoire partagée est créée pour faire transiter des informations entre émetteur et récepteur. Ce partage est effectué avec un mmap() anonyme. Voici les informations que l'on retrouve dans cette mémoire :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item L'identifiant unique du client (utile pour la réception et l'émission de message)
+		\item L'identifiant du serveur (utilisé pour l'envoi et la vérification du serveur)
+		\item Les PID des deux processus crées pour la sortie de l'application
+		\item Un flag pour synchroniser les deux processus lors de l'initialisation
+	\end{itemize}
+
+	\section{La difficulté de la sortie d'application}
+	\par La principale difficulté rencontrée lors de ce projet a été de quitter l'application proprement en libérant toute mémoire allouée et en supprimant la mailbox et ses fichiers.
+	\par La difficulté vient de la présence de deux processus dans le cas du client. En effet, une demande de sortie d'application peut être effectuée depuis l'ensemble des sources suivantes :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item Réception d'un message de déconnexion par le serveur
+		\item Pas de présence de serveur au moment du démarrage
+		\item Un signal d'interruption de l'utilisateur par un Ctrl-C
+		\item L'utilisation de la commande "/quit" 
+	\end{itemize}
+	\par Ceci implique que la demande peut venir du processus émetteur ou du récepteur. Il faut nous a donc fallu trouver une méthode bidirectionnelle pour la propagation du signal de sortie (d'un process à l'autre et vice versa).
+	\par Nous avons tout d'abord tenter l'utilisation d'un flag en mémoire partagée qui indique quand sortir de l'application. Toutefois cette méthode s'est avérée inefficace à cause de l'utilisation de fonction bloquantes qui même après la fin d'une interruption de signal, continuent leur exécution.
+	\par Nous avons finalement choisi de terminer les processus directement dans la fonction Handler du signal d'interruption. Voici les étapes suivi lorsqu'une demande de sortie d'application est demandée :
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item E/R] Demande de sortie (Émetteur ou Récepteur)
+		\item E/R] Envoi d'un signal d'interruption sur l'émetteur
+		\item E] Exécution de l'interruption de l'émetteur
+		\item E] Envoi d'un signal d'interruption sur le récepteur
+		\item E] Attente de la fin du processus récepteur
+		\item R] Exécution de l'interruption du récepteur
+		\item R] Suppression de la mailbox créée à l'init
+		\item R] Exit du processus récepteur
+		\item E] Exit du processus émetteur
+	\end{itemize}
+
+	\section{Diagramme structurel}
+	\par Le diagramme suivant représente les flux d'information entre un client et un serveur :
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth]{./img/ClientServerDiagram.png}
+		\caption{Diagramme Client - Serveur} 
+		\label{fig:diag_client_server}
+	\end{figure}
+
+	\newpage
+	\section{Pseudo et message privé}
+	\par La première amélioration que nous ayons faite consiste à donner un pseudo à tous les utilisateurs. À leur connexion, aucun pseudo n'est défini, c'est l'identifiant de la mailbox qui est utilisé pour l'affichage des messages. Une fois connecté, l'utilisateur peut configurer son pseudo grâce à la commande "/pseudo". Dès lors, cette nouvelle information est communiquée au serveur qui se charge d'avertir tous les autres clients connectés. Si le pseudo est déjà utilisé par un autre utilisateur, alors la demande est refusée et le client est déconnecté pour cause de tentative de vol d'identité.
+	\par La liste des utilisateurs connectés associés aux pseudos est aussi communiquée à chaque connexion d'un nouvel arrivant et chaque déconnexion. De ce fait, la liste des clients est constamment à jour.
+	\par Maintenant que chaque client connait la présence de chaque autre client, il est très facile de les faire communiquer directement sans passer par le serveur. Ainsi, avec la commande "/msg", un message est directement envoyé dans la mailbox de l'utilisateur spécifié.
+	\par Pour avoir la liste des utilisateurs connectés, il suffit de taper la commande "/who".
+
+	\section{Amélioration}
+	\par Voici quelques idées d'amélioration qu'il est possbile d'apporter au projet : 
+	\begin{itemize}\renewcommand{\labelitemi}{$\bullet$} 
+		\item Le système de commande permet d'identifier les arguments dans la chaine caractère envoyée par l'utilisateur, il suffit donc d'ajouter toute sorte de commande pour enrichir le chat sans se soucier de l'interfaçage.
+		\item Les accès à la mémoire partagée côté client, sont effectués sans test de concurrence. Il semble nécéssaire d'ajouter un système de sémaphore pour synchroniser les deux processus et éviter la corruption de données.
+	\end{itemize}
+
+	\section{Conclusion}
+	\par Ce projet nous a confrontés à de nouvelles problématiques qui n'avaient pas encore été abordées en SEE jusqu'a présent. En effet, nous sommes habitués à ne travailler qu'avec un seul fil d'exécution. Une architecture avec plus d'un processus et des tâches exécutées en parallèle nous oblige à penser différemment : il faut partager les ressources et synchroniser les actions. En somme, le sujet, bien que banal, nous a permis de découvrir tout un ensemble de nouvelles fonctions.
+
+	% =====================
+	% BACK MATTER
+	% =====================
+\end{document}
