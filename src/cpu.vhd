@@ -18,7 +18,10 @@ port (
 ------ Globally routed signals -------
     reset         : in  std_logic;                       -- Reset input  
     clk           : in  std_logic;                       -- Input clock
-    ce            : in  std_logic                        -- Clock enable
+    ce            : in  std_logic;                       -- Clock enable
+------ Output data -------------------
+    o_mem_in_data : out std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0); -- Input data bus from memory
+    o_mem_out_data: out std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0)  -- Output data bus to memory
 );
 end cpu;
 
@@ -159,5 +162,9 @@ begin
         i_data => s_mem_in, 
         o_data => s_mem_out
     );
+
+    -- Permanent
+    o_mem_in_data <= s_mem_in;
+    o_mem_out_data <= s_mem_out;
 
 end rtl;

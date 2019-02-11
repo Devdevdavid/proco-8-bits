@@ -1,55 +1,55 @@
 v 3
-file . "./src/tb/tb_uc_fsm.vhd" "20190210161652.000" "20190211143946.407":
-  entity tb_uc_fsm at 1( 0) + 0 on 5207;
-  architecture rtl of tb_uc_fsm at 8( 113) + 0 on 5208;
-file . "./src/tb/tb_ual.vhd" "20190210160722.000" "20190211143946.381":
-  entity tb_ual at 1( 0) + 0 on 5203;
-  architecture rtl of tb_ual at 8( 107) + 0 on 5204;
-file . "./src/tb/tb_cpu.vhd" "20190211133831.000" "20190211143946.433":
-  entity tb_cpu at 1( 0) + 0 on 5211;
-  architecture rtl of tb_cpu at 8( 107) + 0 on 5212;
-file . "./src/sync_ram.vhd" "20190210165125.000" "20190211143946.341":
-  entity sync_ram at 8( 202) + 0 on 5197;
-  architecture rtl of sync_ram at 32( 1196) + 0 on 5198;
-file . "./src/uc_fsm.vhd" "20190210165223.000" "20190211143946.313":
-  entity uc_fsm at 8( 220) + 0 on 5193;
-  architecture struct of uc_fsm at 39( 1895) + 0 on 5194;
-file . "./src/ual.vhd" "20190210165150.000" "20190211143946.287":
-  entity ual at 8( 217) + 0 on 5189;
-  architecture rtl of ual at 27( 914) + 0 on 5190;
-file . "./src/addi_1_bit.vhd" "20190210164853.000" "20190211143946.251":
-  entity addi_1_bit at 8( 198) + 0 on 5185;
-  architecture rtl of addi_1_bit at 24( 791) + 0 on 5186;
-file . "./src/flipflop.vhd" "20190211133507.000" "20190211143946.221":
-  entity flipflop at 8( 215) + 0 on 5181;
-  architecture rtl of flipflop at 27( 1031) + 0 on 5182;
-file . "./src/register_n_bits.vhd" "20190210165102.000" "20190211143946.190":
-  entity register_n_bits at 8( 199) + 0 on 5177;
-  architecture rtl of register_n_bits at 28( 939) + 0 on 5178;
-file . "./src/mux_2_in.vhd" "20190210165032.000" "20190211143946.205":
-  entity mux_2_in at 8( 202) + 0 on 5179;
-  architecture rtl of mux_2_in at 26( 820) + 0 on 5180;
-file . "./src/counter_n_bits.vhd" "20190211133939.000" "20190211143946.236":
-  entity counter_n_bits at 8( 196) + 0 on 5183;
-  architecture struct of counter_n_bits at 31( 1160) + 0 on 5184;
-file . "./src/addi_n_bits.vhd" "20190210164911.000" "20190211143946.269":
-  entity addi_n_bits at 8( 199) + 0 on 5187;
-  architecture rtl of addi_n_bits at 26( 802) + 0 on 5188;
-file . "./src/ut.vhd" "20190211133251.000" "20190211143946.300":
-  entity ut at 8( 196) + 0 on 5191;
-  architecture rtl of ut at 34( 1467) + 0 on 5192;
-file . "./src/uc.vhd" "20190210165245.000" "20190211143946.326":
-  entity uc at 8( 194) + 0 on 5195;
-  architecture rtl of uc at 37( 1687) + 0 on 5196;
-file . "./src/cpu.vhd" "20190211133141.000" "20190211143946.356":
-  entity cpu at 8( 206) + 0 on 5199;
-  architecture rtl of cpu at 25( 764) + 0 on 5200;
-file . "./src/tb/tb_addi_n_bits.vhd" "20190210153243.000" "20190211143946.368":
-  entity tb_addi_n_bits at 1( 0) + 0 on 5201;
-  architecture rtl of tb_addi_n_bits at 8( 123) + 0 on 5202;
-file . "./src/tb/tb_ut.vhd" "20190210160759.000" "20190211143946.394":
-  entity tb_ut at 1( 0) + 0 on 5205;
-  architecture rtl of tb_ut at 8( 105) + 0 on 5206;
-file . "./src/tb/tb_uc.vhd" "20190210094851.000" "20190211143946.420":
-  entity tb_uc at 1( 0) + 0 on 5209;
-  architecture rtl of tb_uc at 8( 105) + 0 on 5210;
+file . "./src/tb/tb_uc_fsm.vhd" "20190210161652.000" "20190211151803.852":
+  entity tb_uc_fsm at 1( 0) + 0 on 5379;
+  architecture rtl of tb_uc_fsm at 8( 113) + 0 on 5380;
+file . "./src/tb/tb_ual.vhd" "20190210160722.000" "20190211151803.826":
+  entity tb_ual at 1( 0) + 0 on 5375;
+  architecture rtl of tb_ual at 8( 107) + 0 on 5376;
+file . "./src/tb/tb_cpu.vhd" "20190211141759.000" "20190211151803.878":
+  entity tb_cpu at 1( 0) + 0 on 5383;
+  architecture rtl of tb_cpu at 8( 107) + 0 on 5384;
+file . "./src/sync_ram.vhd" "20190211134945.000" "20190211151803.787":
+  entity sync_ram at 8( 202) + 0 on 5369;
+  architecture rtl of sync_ram at 33( 1270) + 0 on 5370;
+file . "./src/uc_fsm.vhd" "20190211134945.000" "20190211151803.760":
+  entity uc_fsm at 8( 220) + 0 on 5365;
+  architecture struct of uc_fsm at 40( 2046) + 0 on 5366;
+file . "./src/ual.vhd" "20190210165150.000" "20190211151803.723":
+  entity ual at 8( 217) + 0 on 5361;
+  architecture rtl of ual at 27( 914) + 0 on 5362;
+file . "./src/addi_1_bit.vhd" "20190210164853.000" "20190211151803.692":
+  entity addi_1_bit at 8( 198) + 0 on 5357;
+  architecture rtl of addi_1_bit at 24( 791) + 0 on 5358;
+file . "./src/flipflop.vhd" "20190211133507.000" "20190211151803.660":
+  entity flipflop at 8( 215) + 0 on 5353;
+  architecture rtl of flipflop at 27( 1031) + 0 on 5354;
+file . "./src/register_n_bits.vhd" "20190211134945.000" "20190211151803.630":
+  entity register_n_bits at 8( 199) + 0 on 5349;
+  architecture rtl of register_n_bits at 29( 1012) + 0 on 5350;
+file . "./src/mux_2_in.vhd" "20190210165032.000" "20190211151803.642":
+  entity mux_2_in at 8( 202) + 0 on 5351;
+  architecture rtl of mux_2_in at 26( 820) + 0 on 5352;
+file . "./src/counter_n_bits.vhd" "20190211133939.000" "20190211151803.676":
+  entity counter_n_bits at 8( 196) + 0 on 5355;
+  architecture struct of counter_n_bits at 31( 1160) + 0 on 5356;
+file . "./src/addi_n_bits.vhd" "20190210164911.000" "20190211151803.710":
+  entity addi_n_bits at 8( 199) + 0 on 5359;
+  architecture rtl of addi_n_bits at 26( 802) + 0 on 5360;
+file . "./src/ut.vhd" "20190211133251.000" "20190211151803.745":
+  entity ut at 8( 196) + 0 on 5363;
+  architecture rtl of ut at 34( 1467) + 0 on 5364;
+file . "./src/uc.vhd" "20190211134945.000" "20190211151803.773":
+  entity uc at 8( 194) + 0 on 5367;
+  architecture rtl of uc at 38( 1761) + 0 on 5368;
+file . "./src/cpu.vhd" "20190211141745.000" "20190211151803.800":
+  entity cpu at 8( 206) + 0 on 5371;
+  architecture rtl of cpu at 28( 1030) + 0 on 5372;
+file . "./src/tb/tb_addi_n_bits.vhd" "20190210153243.000" "20190211151803.813":
+  entity tb_addi_n_bits at 1( 0) + 0 on 5373;
+  architecture rtl of tb_addi_n_bits at 8( 123) + 0 on 5374;
+file . "./src/tb/tb_ut.vhd" "20190210160759.000" "20190211151803.839":
+  entity tb_ut at 1( 0) + 0 on 5377;
+  architecture rtl of tb_ut at 8( 105) + 0 on 5378;
+file . "./src/tb/tb_uc.vhd" "20190210094851.000" "20190211151803.865":
+  entity tb_uc at 1( 0) + 0 on 5381;
+  architecture rtl of tb_uc at 8( 105) + 0 on 5382;
