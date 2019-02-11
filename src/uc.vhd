@@ -18,6 +18,7 @@ port (
 ------ Globally routed signals -------
     reset         : in  std_logic;                        -- Reset input  
     clk           : in  std_logic;                        -- Input clock
+    ce           : in  std_logic;                         -- Clock enable
 ------ Input data --------------------
     i_carry       : in  std_logic;                        -- Carry from UT
     i_mem_data    : in  std_logic_vector(OP_CODE_LENGTH + ADD_LENGTH - 1 downto 0);   -- Incomming data from the memory
@@ -58,8 +59,9 @@ architecture rtl of uc is
     );
     port (
     ------ Globally routed signals -------
-        reset         : in    std_logic;
-        clk           : in    std_logic;
+        reset        : in  std_logic;                          -- Reset input  
+        clk          : in  std_logic;                          -- Input clock
+        ce           : in  std_logic;                          -- Clock enable
     ------ Input data --------------------
         i_carry       : in    std_logic;                       -- Carry bit from UT
         i_op_code     : in    std_logic_vector(OP_CODE_LENGTH - 1 downto 0);    -- Operation code
@@ -87,6 +89,7 @@ architecture rtl of uc is
     ------ Globally routed signals -------
         reset        : in  std_logic;                        -- Reset input  
         clk          : in  std_logic;                        -- Input clock
+        ce           : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_enable     : in  std_logic;                        -- Enable (0: nothing, 1: counting clk)
         i_init       : in  std_logic;                        -- Reset counter value to 0
@@ -105,6 +108,7 @@ architecture rtl of uc is
     ------ Globally routed signals -------
         reset        : in  std_logic;                        -- Reset input  
         clk          : in  std_logic;                        -- Input clock
+        ce           : in  std_logic;                        -- Clock enable
     ------ Input data --------------------
         i_load       : in  std_logic;                        -- Load input (0: Nothing, 1: Copy input to output)
         i_data       : in  std_logic_vector(N-1 downto 0);   -- Input data bits
@@ -135,7 +139,8 @@ begin
     )
     port map (
         reset          => reset, 
-        clk            => clk, 
+        clk            => clk,
+        ce             => ce,     
         i_carry        => i_carry, 
         i_op_code      => s_cur_inst(OP_CODE_LENGTH + ADD_LENGTH - 1 downto ADD_LENGTH), 
         o_init_carry   => o_init_carry,
@@ -158,13 +163,14 @@ begin
         N => ADD_LENGTH
     )
     port map (
-        reset => reset,
-        clk => clk,
-        i_enable => s_en_cpt_add, 
-        i_init => s_init_cpt_add, 
-        i_load => s_ld_cpt_add, 
-        i_data => s_cur_inst(ADD_LENGTH - 1 downto 0), 
-        o_data => s_mux_in_0 
+        reset       => reset,
+        clk         => clk,
+        ce          => ce,  
+        i_enable    => s_en_cpt_add, 
+        i_init      => s_init_cpt_add, 
+        i_load      => s_ld_cpt_add, 
+        i_data      => s_cur_inst(ADD_LENGTH - 1 downto 0), 
+        o_data      => s_mux_in_0 
     );
 
     -- Instantiate the multiplexer
@@ -185,11 +191,12 @@ begin
         N => OP_CODE_LENGTH + ADD_LENGTH
     )
     port map (
-        reset => reset,
-        clk => clk,
-        i_load => s_ld_inst, 
-        i_data => i_mem_data, 
-        o_data => s_cur_inst 
+        reset   => reset,
+        clk     => clk,
+        ce      => ce,  
+        i_load  => s_ld_inst, 
+        i_data  => i_mem_data, 
+        o_data  => s_cur_inst 
     );
 
 end rtl;

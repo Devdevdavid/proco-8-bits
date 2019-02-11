@@ -15,8 +15,9 @@ generic (
 );
 port (
 ------ Globally routed signals -------
-    reset         : in    std_logic;
-    clk           : in    std_logic;
+    reset        : in  std_logic;                          -- Reset input  
+    clk          : in  std_logic;                          -- Input clock
+    ce           : in  std_logic;                          -- Clock enable
 ------ Input data --------------------
     i_carry       : in    std_logic;                       -- Carry bit from UT
     i_op_code     : in    std_logic_vector(OP_CODE_LENGTH - 1 downto 0);    -- Operation code
@@ -52,12 +53,12 @@ architecture struct of uc_fsm is
     signal next_state : state_t;                            -- NeXT state of the fsm
 begin
 
-    process (reset, clk) is
+    process (clk) is
     begin
         if rising_edge(clk) then                
             if reset = '1' then                     
                 cur_state <= INIT;
-            else
+            elsif ce = '1' then
                 cur_state <= next_state;
             end if;
         end if;
