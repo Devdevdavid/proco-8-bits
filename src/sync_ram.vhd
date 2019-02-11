@@ -56,8 +56,10 @@ architecture rtl of sync_ram is
         return ram_to_return;
     end function;
 ------ Signals -------------------
-    signal ram : ram_t := init_ram("./src/ram_2nd_prog.data");
+    --signal ram : ram_t := init_ram("./src/ram_2nd_prog.data");
     --signal ram : ram_t := init_ram("H:\Documents\2A\Proco\Proco 8bit\proco-8-bits-src\src\ram_2nd_prog.data");
+    signal ram : ram_t := (x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"FE",x"7E",x"00",x"00",x"C4",x"C4",x"86",x"47",x"08");
+    --signal ram : ram_t := (x"08",x"47",x"86",x"C4",x"C4",x"00",x"00",x"7E",x"FE",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00",x"00");
     signal read_address : std_logic_vector(i_address'range) := (others => '0');
 begin
 
