@@ -93,7 +93,7 @@ begin
     port map ( 
         reset => reset,
         clk => clk25M,
-        ce => ce25M,
+        ce => ce1s,
         o_mem_address => Adr,
         o_mem_in_data => Data_Unit_Mem,
         o_mem_out_data => Data_Mem_Unit
