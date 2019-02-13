@@ -1,6 +1,6 @@
 #!/bin/sh
 cc=ghdl
-topLayerName=tb_cpu
+topLayerName=tb_flipflop
 simuDurationNs=1500
 opt=--ieee=synopsys
 
