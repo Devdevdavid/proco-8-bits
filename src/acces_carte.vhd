@@ -86,7 +86,7 @@ i_Bin27s_DataLSB      : Bin27s port map(DataLSB,ssegDataLSB);
 i_Bin27s_DataMSB      : Bin27s port map(DataMSB,ssegDataMSB);
 --i_mux4_1 : mux4_1 port map(ssegDataMSB,ssegDataLSB,ssegAdrMSB,ssegAdrLSB,commande_mux4_1,Sseg);
 --i_mux4_1 : mux4_1 port map(ssegDataMSB,ssegDataLSB,ssegDataInMemMSB,ssegDataInMemLSB,commande_mux4_1,Sseg);
-i_mux8_1              : mux8_1 port map(tiret,ssegAdrMSB,ssegAdrLSB,tiret,ssegDataInMemMSB,ssegDataInMemLSB,ssegDataMSB,ssegDataLSB,commande_mux8_1,Sseg);
+i_mux8_1              : mux8_1 port map(tiret,ssegAdrLSB,ssegAdrMSB,tiret,ssegDataInMemLSB,ssegDataInMemMSB,ssegDataLSB,ssegDataMSB,commande_mux8_1,Sseg);
 i_modulo8             : modulo8 port map(clk,reset,ce195k,commande_mux8_1,AN);
 i_gen_ce              : gen_ce  port map(clk,reset,ce195k,ce25M,ce1s);
 
@@ -173,9 +173,9 @@ process(E1,E2,E3,E4,E5,E6,E7,E8,COMMANDE)
 						when "010"  => S<='1'&E3;
 						when "011"  => S<='1'&E4;
                         when "100"  => S<='1'&E5;
-                        when "101"  => S<='0'&E6;
-                        when "110"  => S<='1'&E7;
-						when others => S<='0'&E8;
+                        when "101"  => S<='1'&E6;
+                        when "110"  => S<='0'&E7;
+						when others => S<='1'&E8;
 				end case;
 
 end process;
@@ -202,8 +202,9 @@ end modulo8;
 
 architecture modulo8_a of modulo8 is
 
-    signal cpt_val: std_logic_vector(2 downto 0);
-
+    signal cpt_val: std_logic_vector(3 downto 0);
+    signal cpt: integer;
+    signal intern_cpt_val : std_logic_vector(3 downto 0);
 begin  -- compteur_a
 
     mod8 : process (clk)
@@ -211,32 +212,41 @@ begin  -- compteur_a
     begin  -- process cpt
             
         if clk'event and clk = '1' then 
-		     
-			  if raz = '1' then cpt_val <= "000";
-			  
+			  if raz = '1' then 
+			     cpt_val <= "1000";
+			     cpt <= 0;
 			  elsif ce ='1' then
-              if cpt_val = "111" then
-                cpt_val <= "000";
-                                  else
-               cpt_val <= cpt_val + 1;
-              end if; 
-				end if;  
-           end if;        
+                 if cpt_val = "1000" then
+                    cpt_val <= "0000";
+                    intern_cpt_val <= "0000";
+                 else
+                    cpt <= cpt +1;
+                    if cpt = 4 then
+                        cpt_val <= "1111";
+                        intern_cpt_val <= intern_cpt_val +1;
+                    elsif cpt = 5 then
+                        cpt_val <= intern_cpt_val;
+                        cpt <= 0;
+                    end if; 
+                end if;
+			end if;  
+        end if;        
     end process mod8;
 
-    sortie <= cpt_val;
+    sortie <= cpt_val(2 downto 0);
 
 	 parallel_p : process (cpt_val)
 	 begin 
 	 			case cpt_val is
-						when "000"  => parallel<="11111110";
-						when "001"  => parallel<="11111101";
-						when "010"  => parallel<="11111011";
-						when "011"  => parallel<="11110111";
-						when "100"  => parallel<="11101111";
-						when "101"  => parallel<="11011111";
-						when "110"  => parallel<="10111111";
-						when others => parallel<="01111111";
+						when "0000"  => parallel<="11111110";
+						when "0001"  => parallel<="11111101";
+						when "0010"  => parallel<="11111011";
+						when "0011"  => parallel<="11110111";
+						when "0100"  => parallel<="11101111";
+						when "0101"  => parallel<="11011111";
+						when "0110"  => parallel<="10111111";
+						when "0111" => parallel<="01111111";
+						when others => parallel<="11111111";
 				end case;
 
 	 end process parallel_p;
