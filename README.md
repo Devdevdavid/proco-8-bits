@@ -9,7 +9,7 @@ Ceci s'inscrit dans un cours de conception numérique enseigné à l'ENSEIRB-MAT
 ![Alt text](doc/photo/nexys4_ddr.png "Nexys 4 DDR")
 
 ## Auteurs
-Ce projet a été réaliser dans le cadre d'un projet de l'ENSEIRB-MATMECA. Nous sommes deux étudiants de la fillière par apprentissage SEE 2A.
+Ce projet a été réalisé dans le cadre d'un projet de l'ENSEIRB-MATMECA. Nous sommes deux étudiants de la fillière par apprentissage SEE 2A.
 * David DEVANT
 * Aurélien TROMPAT
 
